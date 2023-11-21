@@ -6,7 +6,7 @@ type Props = {
 }
 
 export default ({text, type}: Props) => (
-    <button type={type}>
+    <button type={type} style={{border: "5px solid green"}}>
         {text}
     </button>
 )
