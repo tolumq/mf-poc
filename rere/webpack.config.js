@@ -34,8 +34,7 @@ const config = {
             filename: "remoteEntry.js",
             // library: { type: module },
             exposes: {
-                "./Button":
-                    "./src/main/Button.tsx",
+                "./Button": "./src/main/Button",
             },
             shared: {
                 ...deps,
