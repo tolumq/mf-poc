@@ -5,6 +5,7 @@
         "moduleResolution": "node",
         "strict": true,
         "jsx": "preserve",
+        "importHelpers": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
@@ -17,10 +18,11 @@
         "typeRoots": ["../shared.types.ts"], 
         "paths": {
             "shared": ["../shared.types.ts"],
-        }
+        },
+
     },
-    "include": [
-        "./src/**/*", "../shared.types.ts"
-    ],
-    "exclude": ["node_modules"]
+    // "include": [
+    //     "./src/**/*", "../shared.types.ts"
+    // ],
+    // "exclude": ["node_modules"]
 }
