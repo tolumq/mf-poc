@@ -1,11 +1,8 @@
 import * as React from "react";
+import {ButtonProps} from "shared"
 
-type Props = {
-    text: string;
-    type: "button" | "submit" | "reset"
-}
 
-export default ({text, type}: Props) => (
+export default ({text, type}: ButtonProps) => (
     <button type={type} style={{border: "5px solid green"}}>
         {text}
     </button>

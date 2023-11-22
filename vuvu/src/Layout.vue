@@ -4,7 +4,7 @@
 </template>
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import ReactDOMServer from "react-dom/server";
+import { renderToString } from "react-dom/server";
 
 const props = defineProps<{
   text: string; type: "button" | "submit" | "reset",
@@ -18,7 +18,7 @@ async function fetchImport(): Promise<string> {
     try {
       const res = (await import(componentName)).default;
       resolve(
-        ReactDOMServer.renderToString(
+        renderToString(
           res({
             text: "React Button with Tolumide from here",
           })

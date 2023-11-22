@@ -6,27 +6,28 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container;
 const deps = require('./package.json').dependencies;
 
+const isProduction = process.env.NODE_ENV == "production";
+
 const config = {
-entry: path.resolve(__dirname, './src/bootstrap.js'),
   mode: "development",
-  devServer: {
-    static: {
-        directory: path.join(__dirname, "dist"),
-    },
-    compress: true,
-    port: "8080",
-    hot: true,
-    open: true,
-    host: "localhost",
-    headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-        'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
-    },
-},
+  cache: false,
+  devtool: "source-map",
+  optimization: {
+    minimize: false,
+  },
+  target: "web",
+  entry: path.resolve(__dirname, './src/index.ts'),
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[contenthash].js'
+    publicPath: "auto",
+  },
+  resolve: {
+    extensions: ['.vue', '.js', '.jsx', '.tsx', '.ts', '.json'],
+    alias: {
+      vue: 'vue/dist/vue.esm-bundler.js',
+    },
+  },
+  experiments: {
+    topLevelAwait: true,
   },
   module: {
     rules: [
@@ -98,55 +99,51 @@ entry: path.resolve(__dirname, './src/bootstrap.js'),
       }
     ]
   },
-  resolve: {
-    extensions: [
-      '.js',
-      '.vue',
-      '.tsx',
-      '.ts'
-    ]
-  },
   plugins: [
-    new VueLoaderPlugin(),
-    // new CopyPlugin({
-    //   patterns: [{ from: 'src/index.html' }],
-    // }),
-    new HtmlWebpackPlugin({
-      // templateContent: ({ htmlWebpackPlugin }) => '<!DOCTYPE html><html><head><meta charset=\"utf-8\"><title>' + htmlWebpackPlugin.options.title + '</title></head><body><div id=\"app\"></div></body></html>',
-      filename: 'index.html',
-    }),
-    new MiniCssExtractPlugin(),
-    new CleanWebpackPlugin(),
     new ModuleFederationPlugin({
-        name: 'layout',
-        remotes: {
-          home: 'home@http://localhost:8081/remoteEntry.js',
+      name: 'layout',
+      remotes: {
+        home: 'home@http://localhost:8081/remoteEntry.js',
+      },
+      shared: {
+        ...deps,
+        react: {
+          singleton: true,
+          requiredVersion: deps.react,
         },
-        shared: {
-          ...deps,
-          react: {
-            singleton: true,
-            requiredVersion: deps.react,
-          },
-          'react-dom': {
-            singleton: true,
-            requiredVersion: deps['react-dom'],
-          },
+        'react-dom': {
+          singleton: true,
+          requiredVersion: deps['react-dom'],
         },
-      }),
+      },
+    }),
+    new HtmlWebpackPlugin({ template: path.resolve(__dirname, './index.html'), chunks: ['main'] }),
+    new VueLoaderPlugin(),
+    // new CleanWebpackPlugin(),
   ],
-  optimization: {
-    runtimeChunk: 'single',
-    splitChunks: {
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all'
-        }
-      }
-    }
-  }
+  devServer: {
+    static: {
+        directory: path.join(__dirname),
+    },
+    compress: true,
+    port: "8080",
+    hot: true,
+    open: true,
+    headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+        'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
+    },
+  },
+
 };
 
-module.exports = config;
+module.exports = () => {
+  if (isProduction) {
+      config.mode = "production";
+      config.plugins.push(new MiniCssExtractPlugin());
+  } else {
+      config.mode = "development";
+  }
+  return config;
+};
