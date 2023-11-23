@@ -4,11 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "vite build",
+    "build": "tsc && vite build",
     "serve": "vite preview --port 8080 --strictPort",
     "dev": "vite dev  --port 8080 --strictPort",
     "w:start": "webpack-cli serve",
-    "w:serve": "webpack serve",
+    "w:serve": "serve dist -p 8080",
     "w:build": "webpack --mode production",
     "w:clean": "rm -rf dist"
   },

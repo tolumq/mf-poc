@@ -3,8 +3,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
-const { FederatedTypesPlugin } = require("@module-federation/typescript");
-const pkg = require("./package.json");
+// const { FederatedTypesPlugin } = require("@module-federation/typescript");
+// const pkg = require("./package.json");
 
 const { ModuleFederationPlugin } = require("webpack").container;
 const deps = require("./package.json").dependencies;
