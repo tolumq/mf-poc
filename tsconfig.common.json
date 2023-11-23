@@ -1,19 +1,19 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
-      "target": "es2015",
+      "target": "esnext",
       "module": "esnext",
-      "jsx": "react",
-      "declaration": false,
-      "importHelpers": true,
-      "sourceMap": true,
-      "esModuleInterop": true,
-      "allowSyntheticDefaultImports": true,
       "moduleResolution": "node",
-      "skipLibCheck": true,
-      "skipDefaultLibCheck": true,
-      "lib": ["dom", "dom.iterable", "esnext"],
+      "outDir": "./dist/",
+      "sourceMap": true,
+      "strict": true,
+      "noImplicitReturns": true,
+      "noImplicitAny": true,
+      "jsx": "preserve",
       "baseUrl": ".",
+
+      "lib": ["dom", "dom.iterable", "esnext"],
+
       "paths": {
         "@rere/*": ["./rere/src/*"],
         "@vuvu/*": ["./vuvu/src/*"],

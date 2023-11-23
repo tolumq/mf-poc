@@ -1,28 +1,11 @@
 {
     "compilerOptions": {
-        "target": "esnext",
-        "module": "esnext",
-        "moduleResolution": "node",
-        "strict": true,
-        "jsx": "preserve",
+        "allowJs": true,
         "importHelpers": true,
         "esModuleInterop": true,
-        "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
-        "noImplicitReturns": true,
-        "sourceMap": true,
-        "baseUrl": ".",
-        "noImplicitAny": true,
-        "allowJs": true,
-        "outDir": "./dist/",
-        "typeRoots": ["../shared.types.ts"], 
-        "paths": {
-            "shared": ["../shared.types.ts"],
-        },
+        "typeRoots": ["src/typings", "./node_modules/@types"],
 
     },
-    // "include": [
-    //     "./src/**/*", "../shared.types.ts"
-    // ],
-    // "exclude": ["node_modules"]
+    "extends": "../tsconfig.common.json"
 }
