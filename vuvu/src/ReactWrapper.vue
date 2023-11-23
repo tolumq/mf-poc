@@ -13,10 +13,7 @@ const root = ref(null);
 const error = ref<any>(null);
 const ReactComponent = ref(null);
 
-const firstLoad = new Promise(resolve => setTimeout(resolve, 1000));
 async function fetchButton() {
-    // simulate long network delay (to be removed)
-    await firstLoad;
     return (await import("home/Button")).default;
 }
 

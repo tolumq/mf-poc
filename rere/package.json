@@ -9,6 +9,7 @@
     "dev": "vite --port 8081 --strictPort",
     "preview": "vite preview",
     "w:start": "webpack-cli serve",
+    "w:watch": "webpack serve --mode development --hot --port 8081",
     "w:serve": "serve dist -p 8081",
     "w:build": "webpack --mode production",
     "w:clean": "rm -rf dist"
