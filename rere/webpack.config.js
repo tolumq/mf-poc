@@ -3,12 +3,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
-// const { FederatedTypesPlugin } = require("@module-federation/typescript");
-// const pkg = require("./package.json");
 
 const { ModuleFederationPlugin } = require("webpack").container;
 const deps = require("./package.json").dependencies;
-
 const isProduction = process.env.NODE_ENV == "production";
 
 const styleHandler = isProduction
@@ -16,7 +13,8 @@ const styleHandler = isProduction
     : "style-loader";
 
 const config = {
-    entry: "./src/index.tsx",
+    entry: "./src/index",
+    target: "web",
     output: {
         // path: path.resolve(__dirname, "dist"),
         publicPath: "auto",
@@ -32,23 +30,23 @@ const config = {
     },
     plugins: [
         new ModuleFederationPlugin({
-            name: "home",
+            name: "rere",
             filename: "remoteEntry.js",
-            // library: { type: "var", // type: 'module', name: "home" },
+            library: {type: "var", name: "rere"},
             exposes: {
-                "./Button": "./src/main/Button",
+                "./Button": "./src/main/Button.tsx",
             },
             shared: {
                 ...deps,
                 react: {
                     singleton: true,
                     requiredVersion: deps.react,
-                    eager: true,
+                    // eager: true,
                 },
                 "react-dom": {
                     singleton: true,
                     requiredVersion: deps["react-dom"],
-                    eager: true,
+                    // eager: true,
                 },
             },
         }),
@@ -92,18 +90,18 @@ const config = {
             },
         ],
     },
-    optimization: {
-        runtimeChunk: "single",
-        splitChunks: {
-            cacheGroups: {
-                vendor: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: "vendors",
-                    chunks: "all",
-                },
-            },
-        },
-    },
+    // optimization: {
+    //     runtimeChunk: "single",
+    //     splitChunks: {
+    //         cacheGroups: {
+    //             vendor: {
+    //                 test: /[\\/]node_modules[\\/]/,
+    //                 name: "vendors",
+    //                 chunks: "all",
+    //             },
+    //         },
+    //     },
+    // },
 };
 
 module.exports = () => {
