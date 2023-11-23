@@ -1,0 +1,24 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+      "target": "es2015",
+      "module": "esnext",
+      "jsx": "react",
+      "declaration": false,
+      "importHelpers": true,
+      "sourceMap": true,
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "moduleResolution": "node",
+      "skipLibCheck": true,
+      "skipDefaultLibCheck": true,
+      "lib": ["dom", "dom.iterable", "esnext"],
+      "baseUrl": ".",
+      "paths": {
+        "@rere/*": ["./rere/src/*"],
+        "@vuvu/*": ["./vuvu/src/*"],
+        "shared": ["./shared.types.ts"]
+      }
+    },
+    "exclude": ["node_modules", "tmp"]
+  }

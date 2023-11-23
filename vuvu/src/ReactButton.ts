@@ -20,7 +20,7 @@ export default {
   props: defineProps<ButtonProps>(),
   setup(props: ButtonProps) {
     const root = ref(null);
-    const error = ref(null);
+    const error = ref<any>(null);
     const ButtonComponent = ref(null);
 
     
@@ -37,16 +37,28 @@ export default {
     onMounted(updateReactComponent);
     onUpdated(updateReactComponent);
     onBeforeUnmount(unmountReactComponent);
+
+    (async() => {
+      try {
+        let result = await fetchButton();
+        ButtonComponent.value = result;
+        updateReactComponent();
+      } catch (e) {
+        console.log("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::", e);
+        error.value = e;
+      }
+    })()
+
     
-    fetchButton()
-    .then(b => {
-      ButtonComponent.value = b;
-      updateReactComponent();
-    })
-    .catch(e => {
-      console.log("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::", e);
-      error.value = e;
-      });
+    // fetchButton()
+    // .then(b => {
+    //   ButtonComponent.value = b;
+    //   updateReactComponent();
+    // })
+    // .catch(e => {
+    //   console.log("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::", e);
+    //   error.value = e;
+    //   });
 
     return { root, error };
   },

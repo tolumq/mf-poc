@@ -1,8 +1,10 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const BundleAnalyzerPlugin =
-    require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+
+const { FederatedTypesPlugin } = require("@module-federation/typescript");
+const pkg = require("./package.json");
 
 const { ModuleFederationPlugin } = require("webpack").container;
 const deps = require("./package.json").dependencies;
@@ -32,7 +34,7 @@ const config = {
         new ModuleFederationPlugin({
             name: "home",
             filename: "remoteEntry.js",
-            // library: { type: module },
+            // library: { type: "var", // type: 'module', name: "home" },
             exposes: {
                 "./Button": "./src/main/Button",
             },
