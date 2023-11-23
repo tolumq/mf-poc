@@ -16,7 +16,7 @@ async function fetchImport(): Promise<string> {
   const componentName = "home/Button"
   return new Promise(async (resolve, reject) => {
     try {
-      const res = (await import(componentName)).default;
+      const res = (await import("home/Button")).default;
       resolve(
         ReactDOMServer.renderToString(
           res({
