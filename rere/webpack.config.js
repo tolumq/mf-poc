@@ -14,51 +14,17 @@ const styleHandler = isProduction
 
 const config = {
     entry: "./src/index",
-    target: "web",
-    output: {
-        // path: path.resolve(__dirname, "dist"),
-        publicPath: "auto",
-    },
     devServer: {
         static: {
             directory: path.join(__dirname, "dist"),
         },
         open: true,
-        host: "localhost",
+        // host: "localhost",
         hot: true,
         port: "8081",
     },
-    plugins: [
-        new ModuleFederationPlugin({
-            name: "rere",
-            filename: "remoteEntry.js",
-            library: {type: "var", name: "rere"},
-            exposes: {
-                "./Button": "./src/main/Button.tsx",
-            },
-            shared: {
-                ...deps,
-                react: {
-                    singleton: true,
-                    requiredVersion: deps.react,
-                    // eager: true,
-                },
-                "react-dom": {
-                    singleton: true,
-                    requiredVersion: deps["react-dom"],
-                    // eager: true,
-                },
-            },
-        }),
-        new HtmlWebpackPlugin({ template: "index.html" }),
-        new BundleAnalyzerPlugin({
-            analyzerMode: "static",
-            openAnalyzer: false,
-        }),
-    ],
-    resolve: {
-        extensions: [".tsx", ".ts", ".jsx", ".js"],
-        alias: {},
+    output: {
+        publicPath: "auto",
     },
     module: {
         rules: [
@@ -90,18 +56,42 @@ const config = {
             },
         ],
     },
-    // optimization: {
-    //     runtimeChunk: "single",
-    //     splitChunks: {
-    //         cacheGroups: {
-    //             vendor: {
-    //                 test: /[\\/]node_modules[\\/]/,
-    //                 name: "vendors",
-    //                 chunks: "all",
-    //             },
-    //         },
-    //     },
-    // },
+    cache: false,
+    devtool: "source-map",
+    target: "web",
+    optimization: {
+        minimize: false,
+    },
+    plugins: [
+        new ModuleFederationPlugin({
+            name: "home",
+            filename: "remoteEntry.js",
+            library: {type: "var", name: "home"},
+            exposes: {
+                "./Button": "./src/main/Button.tsx",
+            },
+            shared: {
+                ...deps,
+                react: {
+                    singleton: true,
+                    requiredVersion: deps.react,
+                },
+                "react-dom": {
+                    singleton: true,
+                    requiredVersion: deps["react-dom"],
+                },
+            },
+        }),
+        new HtmlWebpackPlugin({ template: "index.html" }),
+        new BundleAnalyzerPlugin({
+            analyzerMode: "static",
+            openAnalyzer: false,
+        }),
+    ],
+    resolve: {
+        extensions: [".tsx", ".ts", ".jsx", ".js"],
+        alias: {},
+    },
 };
 
 module.exports = () => {
