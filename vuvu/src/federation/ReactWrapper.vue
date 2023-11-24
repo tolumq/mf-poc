@@ -8,6 +8,8 @@ import ReactDOM from "react-dom";
 import { ref, onMounted, onBeforeUnmount, onUpdated, defineProps } from 'vue';
 import { ButtonProps } from 'shared';
 
+import { useDynamicScript } from "../../src/utils/dynamicScript"
+
 type Scope = unknown;
 type Factory = () => any;
 
@@ -26,15 +28,15 @@ const error = ref<any>(null);
 const ReactComponent = ref(null);
 
 
-async function loadComponent(remoteName: string, exposedModule: string) {
+async function loadComponent(scope: string, module: string) {
     // Initializes the share scope. This fills it with known provided modules from this build and all remotes
     await __webpack_init_sharing__('default');
     // @ts-ignore
-    const container = window(remoteName) as Container; // or get the container somewhere else
+    const container = window[scope] as Container; // or get the container somewhere else
     
     // Initialize the container, it may provide share modules
     await container.init(__webpack_share_scopes__.default);
-    const factory = await container.get(exposedModule);
+    const factory = await container.get(module);
     const Module = factory();
     return Module;
 }
@@ -60,7 +62,10 @@ onBeforeUnmount(unmountReactComponent);
 
 try {
     (async() => {
-        let result = await fetchButton();
+        await useDynamicScript("home@http://localhost:8081/remoteEntry.js");
+        const result = await loadComponent("home", "./Button");
+        // const result = await fetchButton()
+        console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++", result);
         ReactComponent.value = result;
         updateReactComponent();
     })()
