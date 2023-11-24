@@ -6,7 +6,7 @@
 <script setup lang="ts">
 import Input from "./Input.vue";
 // import Layout from "./Layout.vue";
-import ReactWrapper from "./ReactWrapper.vue"
+import ReactWrapper from "../federation/ReactWrapper.vue"
 
 
 console.log(":HELLO WORD!!!!!!!");
