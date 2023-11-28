@@ -6,10 +6,7 @@
 import * as React from "react";
 import ReactDOM from "react-dom";
 import { ref, onMounted, onBeforeUnmount, onUpdated, defineProps, toRefs } from 'vue';
-import { ButtonProps, Status } from '../shared.types';
-import { watch } from "vue";
-import { useDynamicScript } from "../utils/dynamicScript";
-// import { importRemote } from "@module-federation/utilities";
+import { ButtonProps, } from '../shared.types';
 
 
 
@@ -61,6 +58,8 @@ const ReactComponent = ref<any>(null);
 
 
 
+
+// static components
 async function fetchButton() {
     return (await import("home/Button")).default;
 }
@@ -89,7 +88,7 @@ const addScript = (url: string) =>
 
         element.onload = () => {
             console.log("document.head", document.head)
-            resolve("we're good")
+            resolve("")
         }
 
         element.onerror = (e) => {
@@ -100,23 +99,15 @@ const addScript = (url: string) =>
     })
 
 try {
-    // const {status, urlCache} = toRefs(useDynamicScript(props.url)!);
-
     (async () => {
-        console.log("(((((((((((((((((((((((((((((((|||||||||||||||||||||||||)))))))))))))))))))))))))))))))");
         const result = await addScript(props.url);
         const Component = await loadComponent(props.scope, props.module);
-        // const lazyLoaded = await Component();
-        console.log("the component>>>>>>>>>", Component.default)
-        const abc = Component._result;
         ReactComponent.value = Component.default;
-        console.log("WHAT WE SEE(((((((((((((((((((((((((((((((((>>>>>>>>>>>>>>>>>>>>>>>>>>>)))))))))))))))))))))))))))))))))", abc)
         updateReactComponent();
     })()
 
 } catch (e) {
     error.value = e;
-    console.log("RECEIVED ERROR||||||||||||||", e);
 }
 
 
