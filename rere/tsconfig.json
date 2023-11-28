@@ -3,8 +3,8 @@
         "jsx": "react",       
         "baseUrl": ".",
         "paths": {
-            "@/*": ["src/*"],
-            "shared": ["../shared.types.ts"],
+            "src/*": ["src/*"],
+            "sharedTypes": ["../shared.types.ts"],
         }
     },
     "include": ["./src/**/*", "../shared.types.ts"],

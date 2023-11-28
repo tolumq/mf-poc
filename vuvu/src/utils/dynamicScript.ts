@@ -1,8 +1,7 @@
 import { onBeforeUnmount, reactive, toRefs, watch } from "vue";
+import {Status} from "../shared.types";
 
-enum Status { Rest, Loading, Error, Success }
-
-type State = {
+export type State = {
     status: Status,
     urlCache: Set<string>
 }
@@ -24,16 +23,18 @@ export function useDynamicScript(url: string) {
     element.async = true;
 
     element.onload = () => {
+        console.log("appended to the head ((((((((((((((((((((((((((||||||||||||||||||||||||||||||||||||||||||||||||))))))))))))))))))))))))))*********************************");
         state.urlCache.add(url);
+        console.log("GOOD LOAD *******GOOD LOAD *******GOOD LOAD *******GOOD LOAD *******GOOD LOAD *******GOOD LOAD *******");
         state.status = Status.Success;
     }
-
+    
     element.onerror =() => {
+        console.log("BAD BAD LOAD ->?>>>>>>BAD BAD LOAD ->?>>>>>>BAD BAD LOAD ->?>>>>>>BAD BAD LOAD ->?>>>>>>BAD BAD LOAD ->?>>>>>>BAD BAD LOAD ->?>>>>>>")
         state.status = Status.Error;
     }
-
+    
     document.head.appendChild(element);
-
 
     onBeforeUnmount(() => {
         state.urlCache.delete(url);
@@ -41,5 +42,5 @@ export function useDynamicScript(url: string) {
     })
     
     
-    return toRefs({ state })
+    return state
 }

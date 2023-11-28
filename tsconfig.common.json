@@ -15,9 +15,9 @@
       "lib": ["dom", "dom.iterable", "esnext"],
 
       "paths": {
-        "@rere/*": ["./rere/src/*"],
-        "@vuvu/*": ["./vuvu/src/*"],
-        "shared": ["./shared.types.ts"]
+        // "@rere/*": ["./rere/src/*"],
+        // "@vuvu/*": ["./vuvu/src/*"],
+        "sharedTypes": ["./shared.types.ts"]
       }
     },
     "exclude": ["node_modules", "tmp"]

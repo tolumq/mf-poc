@@ -24,7 +24,7 @@
         "baseUrl": ".",
         "typeRoots": ["src/typings.ts", "./node_modules/@types"],
         "paths": {
-            "@/*": ["./src/*"]
+            "src/*": ["./src/*"]
         }
     },
     "include": ["src"],

@@ -47,7 +47,8 @@ export const useLoadComponent = async () => {
         cache.components[key] = Component;
 
         return {
-            status: result?.state.value.status,
+            status: result?.status,
+            // status: result?.state.status,
             Component: Component
         }
     }
