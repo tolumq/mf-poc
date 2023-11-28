@@ -45,9 +45,6 @@ async function loadComponent(scope: ModuleScopes, module: string) {
 }
 
 
-async function loadRemote(scope: ModuleScopes, module: string) {
-}
-
 type WrapperProps = DynamicModule & ButtonProps; // extends any other props (this would be refactored)
 
 

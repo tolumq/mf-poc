@@ -14,18 +14,3 @@
     "include": ["./src/**/*", "../shared.types.ts"],
     "extends": "../tsconfig.common.json"
 }
-
-
-
-// {
-//     "compilerOptions": {
-//         "jsx": "react",       
-//         "baseUrl": ".",
-//         "paths": {
-//             "src/*": ["src/*"],
-//             "sharedTypes": ["../shared.types.ts"],
-//         }
-//     },
-//     "include": ["./src/**/*", "../shared.types.ts"],
-//     "extends": "../tsconfig.common.json"
-// }
