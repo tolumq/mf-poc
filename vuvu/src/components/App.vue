@@ -6,7 +6,6 @@
 </template>
 <script setup lang="ts">
 import Input from "./Input.vue";
-// import Layout from "./Layout.vue";
 import ReactWrapper from "../federation/ReactWrapper.vue"
 
 

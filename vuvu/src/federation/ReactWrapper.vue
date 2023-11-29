@@ -8,9 +8,6 @@ import ReactDOM from "react-dom";
 import { ref, onMounted, onBeforeUnmount, onUpdated, defineProps, toRefs } from 'vue';
 import { ButtonProps, } from '../shared.types';
 
-
-
-
 type Scope = unknown;
 type Factory = () => any;
 
@@ -32,7 +29,6 @@ declare const __webpack_share_scopes__: { default: Scope };
 
 
 async function loadComponent(scope: ModuleScopes, module: string) {
-//   return async () => {
     // Initializes the share scope. This fills it with known provided modules from this build and all remotes
     await __webpack_init_sharing__("default");
     const container = window[scope] as Container; // or get the container somewhere else
@@ -41,7 +37,6 @@ async function loadComponent(scope: ModuleScopes, module: string) {
     const factory = await window[scope].get(module);
     const Module = factory();
     return Module;
-//   };
 }
 
 
@@ -106,27 +101,4 @@ try {
 } catch (e) {
     error.value = e;
 }
-
-
-// try {
-//     (async() => {
-//         // addScript(props.url).then(res => {
-//         //     console.log("(((((((((((((((((((((((((((((((|||||||||||||||||||||||||)))))))))))))))))))))))))))))))", result);
-//         // }).catch(e => {
-//         //     console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", e)
-//         // });
-//         // const Bar = React.lazy(() => importRemote({
-//         //     url: () => Promise.resolve(""),
-//         //     scope: "home",
-//         //     module: "Button",
-//         // }))
-//         // const ComponentABC = <ModuleLoader />;
-//         const result = await fetchButton();
-//         ReactComponent.value = result;
-//         console.log("WHAT RESULT SHOULD LOOK LIKE >>>>>>>>>>>>>>>>>>>>>>", result);
-//         updateReactComponent();
-//     })()
-// } catch (e) {
-//     error.value = e;
-// }
 </script>
