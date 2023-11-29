@@ -17,7 +17,7 @@
       "paths": {
         // "@rere/*": ["./rere/src/*"],
         // "@vuvu/*": ["./vuvu/src/*"],
-        "sharedTypes": ["./shared.types.ts"]
+        "shared": ["./shared.types.ts"]
       }
     },
     "exclude": ["node_modules", "tmp"]
