@@ -2,7 +2,7 @@ import * as React from "react"
 import styles from "./Input.module.css";
 import classnames from "classnames";
 
-type InputProps = {
+export type InputProps = {
     name: string;
     label?: string;
     classes: Record<Partial<"label"| "input" | "wrapper">, string>

@@ -1,13 +1,15 @@
 {
     "compilerOptions": {
-        "allowJs": true,
-        // "importHelpers": true,
         "jsx": "react", 
+        "allowJs": true,
+        "baseUrl": ".",
+        "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "typeRoots": ["src/typings", "./node_modules/@types"],
         "paths": {
             "src/*": ["src/*"],
+            "shared": ["../shared.types.ts"],
         }
     },
     "include": ["./src/**/*", "../shared.types.ts"],

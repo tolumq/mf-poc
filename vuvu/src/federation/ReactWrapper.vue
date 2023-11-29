@@ -6,7 +6,7 @@
 import * as React from "react";
 import ReactDOM from "react-dom";
 import { ref, onMounted, onBeforeUnmount, onUpdated, defineProps, toRefs } from 'vue';
-import { ButtonProps, } from '../shared.types';
+import { ButtonProps } from "shared";
 
 type Scope = unknown;
 type Factory = () => any;
