@@ -21,12 +21,12 @@ export enum ModuleScope {
 
 export const shared: Shared = {
     [SharedComponents.Button]: {
-        url: "http://localhost:8081/RemoteEntry.js",
+        url: "http://localhost:8081/remoteEntry.js",
         scope: ModuleScope.Home,
         module: "./Button"
     },
     [SharedComponents.Input]: {
-        url: "http://localhost:8081/RemoteEntry.js",
+        url: "http://localhost:8081/remoteEntry.js",
         scope: ModuleScope.Home,
         module: "./Button"
     }

@@ -2,8 +2,9 @@ const path = require('path');
 const { VueLoaderPlugin } = require('vue-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+// const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container;
+const ExternalTemplateRemotesPlugin = require('external-remotes-plugin');
 const deps = require('./package.json').dependencies;
 
 const isProduction = process.env.NODE_ENV == "production";
@@ -118,6 +119,7 @@ const config = {
         },
       },
     }),
+    new ExternalTemplateRemotesPlugin(),
     new HtmlWebpackPlugin({ template: path.resolve(__dirname, './index.html'), chunks: ['main'] }),
     new VueLoaderPlugin(),
     // new CleanWebpackPlugin(),
