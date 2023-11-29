@@ -1,13 +1,5 @@
 import { ButtonProps, InputProps } from "shared"
 
-
-// export const SharedComponents = {
-//     Button: "button",
-//     Input: "input",
-// } as const;
-
-// export type SharedModules = (typeof SharedComponents)[keyof typeof SharedComponents];
-
 export enum SharedComponents {
     Button ="button",
     Input = "input",
@@ -31,16 +23,3 @@ export const shared: Shared = {
         module: "./Button"
     }
 } as const;
-
-
-// export const sharedComponents = {'button': "button", "input": "input"};
-
-
-// export interface SharedProps {
-//     [SharedComponents.Button]: ButtonProps
-//     [SharedComponents.Input]: InputProps
-// }
-
-// type days = {message: string};
-
-
