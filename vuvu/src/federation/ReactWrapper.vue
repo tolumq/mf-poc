@@ -6,17 +6,18 @@
 import * as React from "react";
 import ReactDOM from "react-dom";
 import { ref, onMounted, onBeforeUnmount, onUpdated, defineProps, toRefs } from 'vue';
-import { ButtonProps } from "shared";
+import { ButtonProps, InputProps } from "shared";
+import { ModuleScope, SharedComponents, shared } from "./utils";
 
 type Scope = unknown;
 type Factory = () => any;
 
-export type ModuleScopes = "home"; // all the types imported in webpack module federation
 
 export type DynamicModule = {
   module: string;
   url: string;
-  scope: ModuleScopes;
+  scope: ModuleScope;
+//   component: keyof Shared
 }
 
 type Container = {
@@ -28,7 +29,7 @@ declare const __webpack_init_sharing__: (shareScope: string) => Promise<void>;
 declare const __webpack_share_scopes__: { default: Scope };
 
 
-async function loadComponent(scope: ModuleScopes, module: string) {
+async function loadComponent(scope: ModuleScope, module: string) {
     // Initializes the share scope. This fills it with known provided modules from this build and all remotes
     await __webpack_init_sharing__("default");
     const container = window[scope] as Container; // or get the container somewhere else
@@ -40,10 +41,33 @@ async function loadComponent(scope: ModuleScopes, module: string) {
 }
 
 
-type WrapperProps = DynamicModule & ButtonProps; // extends any other props (this would be refactored)
+// type SharedProps = {
+//     "button": ButtonProps
+//     "input": InputProps
+// }
 
 
-const props = defineProps<WrapperProps>();
+// type SharedKeys = keyof SharedProps;
+// type Wrapper<T extends SharedKeys> = SharedProps[T];
+
+
+type ComponentProps = ButtonProps | InputProps;
+
+
+// type SharedKeys = keyof Shared;
+// type Days = {message: string};
+// type MessageOf<T extends Days> = T["message"];
+// type Messageing<T extends keyof Days> = Days[T];
+// type WrappedModule = 
+// type WrappedModule<T extends keyof >
+
+
+// type WrappedModule = DynamicModule & SharedProps[SharedComponents.Button];
+
+type WrapperProps = DynamicModule // extends any other props (this would be refactored)
+
+
+const props = defineProps<{reactWrapperName: SharedComponents } & ComponentProps >();
 const root = ref(null);
 const error = ref<any>(null);
 const ReactComponent = ref<any>(null);
@@ -58,7 +82,8 @@ async function fetchButton() {
 
 function updateReactComponent() {
     if(!ReactComponent.value || !!error.value) return;
-    ReactDOM.render(React.createElement(ReactComponent.value, props), root.value);
+    const {reactWrapperName, ...rest} = props;
+    ReactDOM.render(React.createElement(ReactComponent.value, rest as {}), root.value);
 }
 
 
@@ -92,8 +117,10 @@ const addScript = (url: string) =>
 
 try {
     (async () => {
-        const result = await addScript(props.url);
-        const Component = await loadComponent(props.scope, props.module);
+        const {module, scope, url} = shared[props.reactWrapperName as  SharedComponents];
+
+        await addScript(url);
+        const Component = await loadComponent(scope as ModuleScope, module);
         ReactComponent.value = Component.default;
         updateReactComponent();
     })()
