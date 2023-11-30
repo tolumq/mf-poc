@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "jsx": "react",
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": ".",
+        "paths": {
+            "src/*": ["src/*"],
+            "shared": ["../shared.types.ts"],
+            "atoms": ["./src/main/atoms/*"]
+        }
+    },
+    "include": ["./src/**/*", "../shared.types.ts", "../declarations.d.ts"],
+    "extends": "../tsconfig.common.json"
+}

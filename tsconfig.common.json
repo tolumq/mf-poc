@@ -15,10 +15,9 @@
       "lib": ["dom", "dom.iterable", "esnext"],
 
       "paths": {
-        "@rere/*": ["./rere/src/*"],
-        "@vuvu/*": ["./vuvu/src/*"],
         "shared": ["./shared.types.ts"]
       }
     },
-    "exclude": ["node_modules", "tmp"]
+    "exclude": ["node_modules", "tmp"],
+    "include": ["../declarations.d.ts"]
   }

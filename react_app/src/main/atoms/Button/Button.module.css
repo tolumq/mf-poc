@@ -1,0 +1,12 @@
+.button {
+    padding: 0.5rem;
+    min-width: 3rem;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    border: 1px solid green;
+}
+
+.button:active {
+    transform: scale(0.95);
+}
+
