@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const ExternalTemplateRemotesPlugin = require('external-remotes-plugin');
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 
@@ -69,6 +70,8 @@ const config = {
             library: {type: "var", name: "home"},
             exposes: {
                 "./Button": "./src/main/atoms/Button/Button.tsx",
+                "./Icon": "./src/main/atoms/Icon/Icon.tsx",
+                "./Input": "./src/main/atoms/Input/Input.tsx",
             },
             shared: {
                 ...deps,
@@ -82,6 +85,7 @@ const config = {
                 },
             },
         }),
+        new ExternalTemplateRemotesPlugin(),
         new HtmlWebpackPlugin({ template: "index.html" }),
         new BundleAnalyzerPlugin({
             analyzerMode: "static",

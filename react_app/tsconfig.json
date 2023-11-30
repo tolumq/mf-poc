@@ -9,6 +9,6 @@
             "atoms": ["./src/main/atoms/*"]
         }
     },
-    "include": ["./src/**/*", "../shared.types.ts"],
+    "include": ["./src/**/*", "../shared.types.ts", "../declarations.d.ts"],
     "extends": "../tsconfig.common.json"
 }

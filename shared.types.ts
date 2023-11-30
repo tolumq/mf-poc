@@ -19,9 +19,11 @@ export type IconProps = {
 export type InputProps = {
     name: string;
     label?: string;
-    classes: Record<Partial<"label"| "input" | "wrapper">, string>
-    inputType: React.HTMLInputTypeAttribute
+    classes: Record<Partial<"label"| "input" | "wrapper">, string>;
+    inputType: React.HTMLInputTypeAttribute;
+    value: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    required?: boolean
 }
 
 

@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import * as React from "react";
 import ReactDOM from "react-dom";
-import { ref, onMounted, onBeforeUnmount, onUpdated, defineProps, toRefs } from 'vue';
+import { ref, onMounted, onBeforeUnmount, onUpdated, defineProps } from 'vue';
 import { ButtonProps, InputProps } from "shared";
 import { ModuleScope, SharedComponents, shared } from "./utils";
 
@@ -17,7 +17,6 @@ export type DynamicModule = {
   module: string;
   url: string;
   scope: ModuleScope;
-//   component: keyof Shared
 }
 
 type Container = {
@@ -41,30 +40,7 @@ async function loadComponent(scope: ModuleScope, module: string) {
 }
 
 
-// type SharedProps = {
-//     "button": ButtonProps
-//     "input": InputProps
-// }
-
-
-// type SharedKeys = keyof SharedProps;
-// type Wrapper<T extends SharedKeys> = SharedProps[T];
-
-
 type ComponentProps = ButtonProps | InputProps;
-
-
-// type SharedKeys = keyof Shared;
-// type Days = {message: string};
-// type MessageOf<T extends Days> = T["message"];
-// type Messageing<T extends keyof Days> = Days[T];
-// type WrappedModule = 
-// type WrappedModule<T extends keyof >
-
-
-// type WrappedModule = DynamicModule & SharedProps[SharedComponents.Button];
-
-type WrapperProps = DynamicModule // extends any other props (this would be refactored)
 
 
 const props = defineProps<{reactWrapperName: SharedComponents } & ComponentProps >();
@@ -73,12 +49,7 @@ const error = ref<any>(null);
 const ReactComponent = ref<any>(null);
 
 
-
-
-// static components
-async function fetchButton() {
-    return (await import("home/Button")).default;
-}
+const cachedUrls = ref(new Set());
 
 function updateReactComponent() {
     if(!ReactComponent.value || !!error.value) return;
@@ -104,7 +75,6 @@ const addScript = (url: string) =>
         element.async = true;
 
         element.onload = () => {
-            console.log("document.head", document.head)
             resolve("")
         }
 
@@ -118,10 +88,12 @@ const addScript = (url: string) =>
 try {
     (async () => {
         const {module, scope, url} = shared[props.reactWrapperName as  SharedComponents];
-
-        await addScript(url);
+        if(!cachedUrls.value.has(url)) {
+            await addScript(url);
+        }
         const Component = await loadComponent(scope as ModuleScope, module);
         ReactComponent.value = Component.default;
+
         updateReactComponent();
     })()
 

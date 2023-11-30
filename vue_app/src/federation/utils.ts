@@ -3,6 +3,7 @@ import { ButtonProps, InputProps } from "shared"
 export enum SharedComponents {
     Button ="button",
     Input = "input",
+    Icon = "icon",
 };
 
 type Shared = Record<SharedComponents, {url: string, scope: string, module: string}>;
@@ -20,6 +21,11 @@ export const shared: Shared = {
     [SharedComponents.Input]: {
         url: "http://localhost:8081/remoteEntry.js",
         scope: ModuleScope.Home,
-        module: "./Button"
+        module: "./Input"
+    },
+    [SharedComponents.Icon]: {
+        url: "http://localhost:8081/remoteEntry.js",
+        scope: ModuleScope.Home,
+        module: "./Icon"
     }
 } as const;

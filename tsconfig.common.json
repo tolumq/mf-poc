@@ -18,5 +18,6 @@
         "shared": ["./shared.types.ts"]
       }
     },
-    "exclude": ["node_modules", "tmp"]
+    "exclude": ["node_modules", "tmp"],
+    "include": ["../declarations.d.ts"]
   }
